@@ -1,16 +1,20 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuthStore } from "../store/authUser";
 
 const SignUpPage = () => {
+  const { searchParams } = new URL(document.location);
+  const emailValue = searchParams.get("email");
+  const [email, setEmail] = useState(emailValue || "");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-  const [email, setEmail] = useState("")
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
+  const { signup } = useAuthStore();
 
   const handleSignUp = (e) => {
     e.preventDefault();
-    console.log(email, username, password)
-  }
+    signup({ email, username, password });
+  };
 
   return (
     <div className="h-screen w-full hero-bg">
@@ -85,8 +89,8 @@ const SignUpPage = () => {
 
           <div className="text-center text-gray-400">
             Already a memeber?{" "}
-            <Link to={'/login'} className="text-red-500 hover:underline">
-            Sign in
+            <Link to={"/login"} className="text-red-500 hover:underline">
+              Sign in
             </Link>
           </div>
         </div>

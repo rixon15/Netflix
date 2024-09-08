@@ -1,7 +1,15 @@
+import { useAuthStore } from "../../store/authUser"
 
 const HomeScreen = () => {
+
+  const {logout} = useAuthStore();
+
   return (
-    <div>HomeScreen</div>
+    <>
+    <div className="relative h-screen text-white">
+      
+    </div>
+    </>
   )
 }
 
