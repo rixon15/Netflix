@@ -38,3 +38,5 @@ app.listen(PORT, () => {
   console.log(`Server started at http://localhost:${ENV_VARS.PORT}`);
   connectDB();
 });
+
+module.exports = app;
