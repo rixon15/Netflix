@@ -86,7 +86,7 @@ const SearchPage = () => {
         </form>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {results.map((result) => {
+          {results?.map((result) => {
             if (!result.poster_path && !result.profile_path) {
               return null;
             }
@@ -109,6 +109,8 @@ const SearchPage = () => {
                   <Link
                     to={`/watch/${result.id}`}
                     className="flex flex-col items-center"
+                    onClick={() => setContentType(activeTab)}
+                    
                   >
                     <img
                       src={ORIGINAL_IMG_BASE_URL + result.poster_path}

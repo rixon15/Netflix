@@ -48,7 +48,6 @@ export const signup = async (req, res) => {
 
     const image = PROFILE_PICS[Math.floor(Math.random() * PROFILE_PICS.length)];
 
-    console.log(image);
 
     const newUser = new User({
       email,
@@ -127,7 +126,6 @@ export const logout = async (req, res) => {
 
 export const authCheck = (req, res) => {
   try {
-    console.log(req.user)
     res.status(200).json({ success: true, user: req.user });
   } catch (error) {
     res.status(500).json({ succes: false, message: "Internal server error" });

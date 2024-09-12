@@ -4,8 +4,6 @@ import { fetchFromTMDB } from "../services/tmdb.service.js";
 export const searchPerson = async (req, res) => {
   const { query } = req.params;
 
-  console.log(req.user._id.toString());
-
   try {
     const response = await fetchFromTMDB(
       `https://api.themoviedb.org/3/search/person?query=${query}&include_adult=false&language=en-US&page=1`
@@ -48,17 +46,20 @@ export const searchMovie = async (req, res) => {
       return res.status(404).send(null);
     }
 
-    await User.findOneAndUpdate(req.user._id, {
-      $push: {
-        searchHistroy: {
-          id: response.results[0].id,
-          image: response.results[0].poster_path,
-          title: response.results[0].title,
-          searchType: "movie",
-          createdAt: new Date(),
+    if (!req.user.searchHistroy.some((element) => element.title.toLowerCase() === query.toLowerCase())) {
+      
+      await User.findOneAndUpdate(req.user._id, {
+        $push: {
+          searchHistroy: {
+            id: response.results[0].id,
+            image: response.results[0].poster_path,
+            title: response.results[0].title,
+            searchType: "movie",
+            createdAt: new Date(),
+          },
         },
-      },
-    });
+      });
+    }
 
     res.status(200).json({ success: true, content: response.results });
   } catch (error) {
@@ -81,17 +82,20 @@ export const searchTv = async (req, res) => {
       return res.status(404).send(null);
     }
 
-    await User.findOneAndUpdate(req.user._id, {
-      $push: {
-        searchHistroy: {
-          id: response.results[0].id,
-          image: response.results[0].poster_path,
-          title: response.results[0].title,
-          searchType: "tv",
-          createdAt: new Date(),
+    if (!req.user.searchHistroy.some((element) => element.title.toLowerCase() === query.toLowerCase())) {
+
+      await User.findOneAndUpdate(req.user._id, {
+        $push: {
+          searchHistroy: {
+            id: response.results[0].id,
+            image: response.results[0].poster_path,
+            title: response.results[0].title,
+            searchType: "tv",
+            createdAt: new Date(),
+          },
         },
-      },
-    });
+      });
+    }
 
     res.status(200).json({ success: true, content: response.results });
   } catch (error) {
