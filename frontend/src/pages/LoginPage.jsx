@@ -73,6 +73,10 @@ const LoginPage = () => {
             Sign up
             </Link>
           </div>
+          <div className="text-left mx-auto text-gray-400 flex flex-col">
+            <p>Username: demo@demo.com</p>
+            <p>Password: 123456</p>
+          </div>
         </div>
       </div>
     </div>
